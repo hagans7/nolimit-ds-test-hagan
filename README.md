@@ -32,34 +32,23 @@ A small full-stack app that **scrapes TikTok comments** and turns them into **ac
 **Flowchart**  
 <img width="1000" alt="flowchart-scraper_tiktok" src="https://github.com/user-attachments/assets/b3caafef-2f2d-4b68-87c8-40dfe3756232" />
 
-**1) Pipeline Analysis Page**  
+###**1) Pipeline Analysis Page**  
 <img src="https://github.com/user-attachments/assets/d989bc6d-8915-4c27-a452-9a42499e6fd4" alt="Pipeline Analysis Page" width="1000" />
 
 <br>
 
-**2) Sentiment Page**  
+###**2) Sentiment Page**  
 <img src="https://github.com/user-attachments/assets/0ee504ff-0170-46bd-abfb-8b3a0f695832" alt="Sentiment Page" width="1000" />
 
 <br>
 
-**3) RAG Query Page**  
+###**3) RAG Query Page**  
 <img src="https://github.com/user-attachments/assets/d04c2b52-e045-440e-a34c-23ddb43fdc4a" alt="RAG Query Page" width="1000" />
 
 
 ---
 ---
-
-## 🖥️ How to Use
-
-All step-by-step usage and workflow documentation is maintained in a living Canva guide:
-
-➡️ **Open the workflow documentation:** https://www.canva.com/design/DAG0OuHTXqU/EWu5_bEazOY4LEVMfejQnw/edit?utm_content=DAG0OuHTXqU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
-
-**Inside the guide**
-- **Program flow simulations**
-- **Program outputs**
-- **Short descriptions**
-  
+ 
 ## 🚀 Features
 
 * **TikTok Scraper (Apify):** pull comments by video URL
