@@ -1,9 +1,31 @@
+Here’s a single, clean **README.md** you can copy-paste as one file to your GitHub repo. I’ve added your “Description/Background/Goal/etc.” block right at the top, and tightened all formatting so code blocks render correctly.
+
+---
+
 # Comment Intelligence (TikTok)
 
-A small full-stack project that **scrapes TikTok comments**, cleans them for Indonesian, runs **sentiment + topic modeling**, and lets you **query them with Hybrid RAG (BM25 + pgvector)** — all with a **FastAPI** backend and a **Streamlit** UI.
+A small full-stack app that **scrapes TikTok comments** and turns them into **actionable insights** with **sentiment**, **topics**, and **hybrid RAG search** — powered by a **FastAPI** backend and a **Streamlit** UI.
 
 > **Stack:** FastAPI · Streamlit · PostgreSQL + pgvector · LangChain · BERTopic · SentenceTransformers
 > **Flow:** Scrape TikTok → Preprocess (ID) → Sentiment → Topic Modeling → Hybrid RAG → Save to DB & Files
+
+---
+
+## 🔎 Product Brief (at a glance)
+
+* **Description:** A small full-stack app that scrapes TikTok comments and turns them into actionable insights with sentiment, topics, and hybrid RAG search.
+* **Background:** Manually reading social comment sections is noisy, repetitive, and slow—especially for Indonesian content.
+* **Goal:** Give analysts and marketers a one-click way to understand what audiences are saying about any TikTok post.
+* **What it does:** Scrapes, cleans, runs sentiment + topic modeling, indexes to pgvector/BM25, and answers ad-hoc questions over the comments.
+* **What we achieved:** An end-to-end Dockerized pipeline with per-comment outputs, downloadable CSV/JSON/TXT, and a simple Streamlit UI.
+* **Tech/Models:** IndoBERT for sentiment, BERTopic + Indonesian Sentence-BERT for topics, PGVector + BM25 for search, and optional Qwen for generation.
+* **Why it matters:** Cuts analysis time from hours to minutes and backs every answer with traceable snippets and scores.
+* **Limitations:** Relies on Apify access, short/noisy user texts, and model bias; RAG quality dips when comments are scarce.
+* **What can be improved:** Add YouTube/Instagram sources, better dedup/emoji handling, richer dashboards, user auth, and fine-tuned local models.
+* **Next steps:** Schedule auto-crawls, compare time ranges, alert on topic shifts, and export insights to Slack/Sheets.
+* **Who it’s for:** Social teams, agencies, product research, and anyone tracking brand chatter at scale.
+* **Success metrics:** Faster turnaround, broader coverage per campaign, clearer trend lines for topics and sentiment.
+* **Risk/Compliance:** Respect platform ToS, avoid storing PII, enable data removal on request.
 
 ---
 
@@ -13,8 +35,7 @@ A small full-stack project that **scrapes TikTok comments**, cleans them for Ind
 
 | Pipeline Analysis Page                                                       | RAG Query Page                                                           |
 | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| <img width="1222" height="672" alt="image" src="https://github.com/user-attachments/assets/8edededf-4003-4242-8ea7-c94990628b89" />
- | ![RAG Page](https://via.placeholder.com/520x340.png?text=RAG+Query+Page) |
+| ![Pipeline Page](https://via.placeholder.com/520x340.png?text=Pipeline+Page) | ![RAG Page](https://via.placeholder.com/520x340.png?text=RAG+Query+Page) |
 
 ---
 
@@ -23,10 +44,10 @@ A small full-stack project that **scrapes TikTok comments**, cleans them for Ind
 * **TikTok Scraper (Apify):** pull comments by video URL
 * **Indonesian Text Preprocessing:** clean URLs, mentions, emojis, slang, etc.
 * **Sentiment (IndoBERT):** `positive / neutral / negative` + confidence
-* **Topic Modeling (BERTopic):** topic labels via SentenceTransformers embeddings
-* **Hybrid RAG:** BM25 (lexical) + `pgvector` (semantic); optional LLM (Qwen) for drafted answers
-* **Persistence:** store to **PostgreSQL** and export **CSV / JSON / TXT**
-* **CPU-friendly:** runs without GPU
+* **Topic Modeling (BERTopic):** topic labels via Sentence-BERT embeddings
+* **Hybrid RAG:** BM25 (lexical) + `pgvector` (semantic); optional Qwen to draft answers
+* **Persistence:** store in **PostgreSQL** and export **CSV / JSON / TXT**
+* **CPU-friendly:** runs without a GPU
 
 ---
 
@@ -52,17 +73,15 @@ A small full-stack project that **scrapes TikTok comments**, cleans them for Ind
 
 ---
 
-## ⚙️ Setup
+## ⚡ Quickstart (Docker)
 
-### 1) Environment
-
-Copy and edit your env:
+1. **Create your `.env`**
 
 ```bash
 cp .env.example .env
 ```
 
-**`.env` example:**
+2. **Fill it like this:**
 
 ```dotenv
 # ==== Backend ====
@@ -86,11 +105,9 @@ QWEN_BASE_URL=https://dashscope-intl.aliyuncs.com/compatible-mode/v1
 BACKEND_URL=http://backend:8000
 ```
 
-> ⚠️ Don’t commit `.env` to public repos.
+> ⚠️ Do **not** commit `.env` to public repositories.
 
----
-
-### 2) Run with Docker (Recommended)
+3. **Run the stack**
 
 ```bash
 docker compose up -d --build
@@ -118,7 +135,7 @@ docker compose up -d --force-recreate backend
 
 ---
 
-### 3) Run Locally (No Docker)
+## 🧑‍💻 Local Development (No Docker)
 
 > Ensure PostgreSQL is running and **pgvector** exists:
 >
@@ -180,7 +197,24 @@ streamlit run frontend/Home.py --server.port 8601
 
 ---
 
-## 🧭 How to Use
+## 🧭 How It Works (Data Flow)
+
+```mermaid
+flowchart LR
+  A[Input TikTok URL] --> B[Scraper (Apify)]
+  B --> C[Indonesian Preprocess]
+  C --> D[Sentiment (IndoBERT)]
+  D --> E[Topic Modeling (BERTopic)]
+  E --> F[(Postgres + pgvector)]
+  F --> G[Artifacts CSV/JSON/TXT]
+  F --> H[Hybrid RAG (BM25 + Vector)]
+  H --> I[LLM Answer (Qwen, optional)]
+  I --> J[Streamlit UI]
+```
+
+---
+
+## 🖥️ Using the App
 
 ### Pipeline_Analisis (Streamlit)
 
@@ -323,17 +357,20 @@ Examples:
 
 ---
 
-## 🧑‍💻 Dev Notes
+## 🧭 Roadmap
 
-* Avoid **nested** Streamlit expanders.
-* CPU-first design (no CUDA required).
-* Prefer **idempotent** saves using `SAVE_TS_SUFFIX=AUTO`.
+* Add YouTube/Instagram sources
+* Better dedup & emoji handling
+* Richer dashboards and topic drift charts
+* User authentication
+* Fine-tuned/local models
+* Scheduled crawls & Slack/Sheets export
 
 ---
 
 ## 🤝 Contributing
 
-PRs are welcome. Keep docs friendly, changes focused, and diffs small.
+PRs welcome! Keep docs friendly, changes focused, and diffs small.
 
 ---
 
@@ -345,7 +382,7 @@ MIT — see `LICENSE`.
 
 ## 🙏 Acknowledgements
 
-* Apify · pgvector · BERTopic · SentenceTransformers · LangChain · Streamlit · FastAPI
+Apify · pgvector · BERTopic · SentenceTransformers · LangChain · Streamlit · FastAPI
 
 ---
 
