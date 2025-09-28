@@ -1,18 +1,18 @@
-Comment Intelligence (TikTok)
+#Comment Intelligence (TikTok)
 
 A small full-stack project that scrapes TikTok comments, cleans them (Indonesian-aware), runs sentiment + topic modeling, and lets you query with Hybrid RAG (BM25 + pgvector) — all with a FastAPI backend and a Streamlit UI.
 
 Stack: FastAPI · Streamlit · PostgreSQL + pgvector · LangChain · BERTopic · SentenceTransformers
 Flow: Scrape TikTok → Preprocess (ID) → Sentiment → Topic Modeling → Hybrid RAG → Save to DB & Files
 
-✨ Screenshots
+##✨ Screenshots
 
 Replace these placeholders with your own screenshots.
 
 Pipeline Analysis Page	RAG Query Page
 
 	
-🚀 Features
+##🚀 Features
 
 TikTok Scraper (Apify): Pulls comments by video URL
 
@@ -28,7 +28,7 @@ Persistence: saves analysis to PostgreSQL and artifacts to CSV/JSON/TXT
 
 CPU-friendly by default: works fine without a GPU
 
-🧱 Tech Stack
+##🧱 Tech Stack
 
 Backend: FastAPI
 
@@ -42,7 +42,7 @@ Models: BERTopic, SentenceTransformers, IndoBERT
 
 Deployment: Docker & Docker Compose
 
-📋 Prerequisites
+##📋 Prerequisites
 
 Option A (recommended): Docker & Docker Compose
 
@@ -54,7 +54,7 @@ APIFY_API_TOKEN (required) – to scrape TikTok comments
 
 QWEN_API_KEY (optional) – to generate RAG answers with Qwen (OpenAI-compatible)
 
-⚙️ Setup
+##⚙️ Setup
 1) Environment Variables
 
 Copy the example and fill it:
@@ -62,7 +62,7 @@ Copy the example and fill it:
 cp .env.example .env
 
 
-.env example
+###.env example
 
 # ==== Backend ====
 LOG_LEVEL=INFO
@@ -85,7 +85,7 @@ QWEN_BASE_URL=https://dashscope-intl.aliyuncs.com/compatible-mode/v1
 BACKEND_URL=http://backend:8000
 
 
-⚠️ Security: Don’t commit .env to public repos.
+##⚠️ Security: Don’t commit .env to public repos.
 
 2) Run with Docker (Recommended)
 docker compose up -d --build
@@ -137,7 +137,7 @@ Start frontend (another terminal):
 
 streamlit run frontend/Home.py --server.port 8601
 
-🗂️ Project Structure
+##🗂️ Project Structure
 .
 ├── backend/
 │   ├── api/main.py               # FastAPI routes
@@ -161,7 +161,7 @@ streamlit run frontend/Home.py --server.port 8601
 ├── requirements.txt
 └── README.md
 
-🧭 How It Works (Data Flow)
+##🧭 How It Works (Data Flow)
 flowchart LR
   A[Input TikTok URL] --> B[Scraper (Apify)]
   B --> C[Indonesian Preprocess]
@@ -173,7 +173,7 @@ flowchart LR
   H --> I[LLM Answer (Qwen, optional)]
   I --> J[Streamlit UI]
 
-🖥️ Using the App
+##🖥️ Using the App
 1) Pipeline_Analisis Page
 
 Open Pipeline_Analisis (sidebar).
@@ -280,7 +280,7 @@ Examples:
 /files/comments/indomie.csv
 /files/insight/indomie.txt
 
-🧪 Tips & Troubleshooting
+##🧪 Tips & Troubleshooting
 
 RAG shows “[No LLM]”
 You didn’t set QWEN_API_KEY. That’s okay—search + sources still work.
@@ -301,7 +301,7 @@ Ensure CREATE EXTENSION vector; on your Postgres.
 Windows + Docker Desktop hiccups
 If ports are busy, stop old containers or change host ports in docker-compose.yml.
 
-🧑‍💻 Development Notes
+##🧑‍💻 Development Notes
 
 Keep Streamlit expanders flat (avoid nested expanders).
 
@@ -309,16 +309,16 @@ Use CPU by default; no special CUDA setup required.
 
 For long pipelines, prefer idempotent saves (timestamped filenames via SAVE_TS_SUFFIX=AUTO).
 
-🤝 Contributing
+##🤝 Contributing
 
 PRs welcome!
 Keep docs friendly for first-timers, avoid huge diffs, and prefer small focused changes.
 
-📜 License
+##📜 License
 
 MIT — see LICENSE.
 
-🙏 Acknowledgements
+##🙏 Acknowledgements
 
 Apify
  for scraping infra
