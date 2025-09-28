@@ -1,4 +1,3 @@
-Here’s a single, clean **README.md** you can copy-paste as one file to your GitHub repo. I’ve added your “Description/Background/Goal/etc.” block right at the top, and tightened all formatting so code blocks render correctly.
 
 ---
 
