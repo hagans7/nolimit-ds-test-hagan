@@ -1,0 +1,37 @@
+# ===============================================================
+# KONFIGURASI UTAMA UNTUK APLIKASI ANALISIS KONTEN
+# ===============================================================
+#config.yaml
+# --- Model untuk Analisis Sentimen ---
+sentiment_model:
+  path: "niejanee/tokopedia-sentiment-analysis-indobert"
+  device: "auto"
+  batch_size: 16
+
+# --- Model untuk Topic Modeling & Embeddings ---
+topic_model:
+  path: "firqaaa/indo-sentence-bert-base"
+  device: "auto"
+
+# --- Parameter untuk BERTopic ---
+bertopic_params:
+  min_topic_size: 5
+  umap_n_components: 5
+  language: "multilingual"
+  top_n_words: 10
+
+# ===============================================================
+# KONFIGURASI PENYIMPANAN DI AMAZON S3
+# ===============================================================
+s3_storage:
+  # Path (key) untuk file kamus slang di dalam bucket S3.
+  # Aplikasi akan mengunduh file ini saat startup.
+  slang_dictionary_key: "app/data/slang_dictionary.csv"
+
+  # Path (key) untuk menyimpan file indeks database vektor Faiss.
+  # Aplikasi akan membaca dan menulis ke lokasi ini.
+  vector_store_key: "vectorstore/index.faiss"
+
+  # Prefix (folder) untuk menyimpan semua file hasil analisis.
+  # Nama file akan ditambahkan oleh aplikasi (misal: outputs/hasil_123.json).
+  output_prefix: "outputs/"

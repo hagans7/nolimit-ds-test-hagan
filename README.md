@@ -30,14 +30,34 @@ A small full-stack app that **scrapes TikTok comments** and turns them into **ac
 
 ## ✨ Screenshots
 
-> Replace these placeholders with your real screenshots.
+**1) Pipeline Analysis Page**  
+<img src="https://github.com/user-attachments/assets/d989bc6d-8915-4c27-a452-9a42499e6fd4" alt="Pipeline Analysis Page" width="1000" />
 
-| Pipeline Analysis Page                                                       | RAG Query Page                                                           |
-| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| ![Pipeline Page](https://via.placeholder.com/520x340.png?text=Pipeline+Page) | ![RAG Page](https://via.placeholder.com/520x340.png?text=RAG+Query+Page) |
+<br>
+
+**2) Sentiment Page**  
+<img src="https://github.com/user-attachments/assets/0ee504ff-0170-46bd-abfb-8b3a0f695832" alt="Sentiment Page" width="1000" />
+
+<br>
+
+**3) RAG Query Page**  
+<img src="https://github.com/user-attachments/assets/d04c2b52-e045-440e-a34c-23ddb43fdc4a" alt="RAG Query Page" width="1000" />
+
 
 ---
+---
 
+## 🖥️ How to Use
+
+All step-by-step usage and workflow documentation is maintained in a living Canva guide:
+
+➡️ **Open the workflow documentation:** https://www.canva.com/design/DAG0OuHTXqU/EWu5_bEazOY4LEVMfejQnw/edit?utm_content=DAG0OuHTXqU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+**Inside the guide**
+- **Program flow simulations**
+- **Program outputs**
+- **Short descriptions**
+  
 ## 🚀 Features
 
 * **TikTok Scraper (Apify):** pull comments by video URL
@@ -193,24 +213,6 @@ streamlit run frontend/Home.py --server.port 8601
 ├── requirements.txt
 └── README.md
 ```
-
----
-
-## 🧭 How It Works (Data Flow)
-
-```mermaid
-flowchart LR
-  A[Input TikTok URL] --> B[Scraper (Apify)]
-  B --> C[Indonesian Preprocess]
-  C --> D[Sentiment (IndoBERT)]
-  D --> E[Topic Modeling (BERTopic)]
-  E --> F[(Postgres + pgvector)]
-  F --> G[Artifacts CSV/JSON/TXT]
-  F --> H[Hybrid RAG (BM25 + Vector)]
-  H --> I[LLM Answer (Qwen, optional)]
-  I --> J[Streamlit UI]
-```
-
 ---
 
 ## 🖥️ Using the App

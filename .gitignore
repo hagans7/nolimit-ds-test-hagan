@@ -1,0 +1,9 @@
+# Abaikan file environment
+.env
+
+# Abaikan folder virtual environment
+venv/
+.venv/
+
+# Abaikan cache Python
+__pycache__/

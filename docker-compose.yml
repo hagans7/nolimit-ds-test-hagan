@@ -1,0 +1,82 @@
+version: "3.9"
+
+services:
+  db:
+    image: ankane/pgvector:latest
+    container_name: doc_pgvector
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-app}
+      POSTGRES_DB: ${POSTGRES_DB:-appdb}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-app} -d ${POSTGRES_DB:-appdb}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: doc_backend
+    command: uvicorn backend.api.main:app --host 0.0.0.0 --port 8000
+    environment:
+      # ---- Backing services ----
+      PGVECTOR_URL: postgresql+psycopg2://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-app}@db:5432/${POSTGRES_DB:-appdb}
+      PGVECTOR_COLLECTION: ${PGVECTOR_COLLECTION:-comments}
+      # ---- External APIs ----
+      APIFY_API_TOKEN: ${APIFY_API_TOKEN}
+      QWEN_API_KEY: ${QWEN_API_KEY}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://dashscope-intl.aliyuncs.com/compatible-mode/v1}
+      # ---- App config ----
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      HF_HOME: /app/hf_cache
+      SENTENCE_TRANSFORMERS_HOME: /app/hf_cache
+      SLANG_PATH: /app/data/slang_dictionary.csv
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+      - ./data:/app/data
+      - ./config.yaml:/app/config.yaml
+      - hf_cache:/app/hf_cache
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: doc_frontend
+    command: streamlit run frontend/app.py --server.port 8601 --server.address 0.0.0.0
+    environment:
+      BACKEND_URL: http://backend:8000
+      PGVECTOR_COLLECTION: ${PGVECTOR_COLLECTION:-comments}
+      QWEN_API_KEY: ${QWEN_API_KEY}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://dashscope-intl.aliyuncs.com/compatible-mode/v1}
+      HF_HOME: /app/hf_cache
+      SENTENCE_TRANSFORMERS_HOME: /app/hf_cache
+      SLANG_PATH: /app/data/slang_dictionary.csv
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+      - ./data:/app/data
+      - ./config.yaml:/app/config.yaml
+      - hf_cache:/app/hf_cache
+    ports:
+      - "8601:8601"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  hf_cache:
