@@ -29,6 +29,8 @@ A small full-stack app that **scrapes TikTok comments** and turns them into **ac
 ---
 
 ## ✨ Screenshots
+**Flowchart**  
+<img width="1000" alt="flowchart-scraper_tiktok" src="https://github.com/user-attachments/assets/b3caafef-2f2d-4b68-87c8-40dfe3756232" />
 
 **1) Pipeline Analysis Page**  
 <img src="https://github.com/user-attachments/assets/d989bc6d-8915-4c27-a452-9a42499e6fd4" alt="Pipeline Analysis Page" width="1000" />
