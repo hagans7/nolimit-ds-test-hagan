@@ -13,7 +13,8 @@ A small full-stack project that **scrapes TikTok comments**, cleans them for Ind
 
 | Pipeline Analysis Page                                                       | RAG Query Page                                                           |
 | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| ![Pipeline Page](https://via.placeholder.com/520x340.png?text=Pipeline+Page) | ![RAG Page](https://via.placeholder.com/520x340.png?text=RAG+Query+Page) |
+| <img width="1222" height="672" alt="image" src="https://github.com/user-attachments/assets/8edededf-4003-4242-8ea7-c94990628b89" />
+ | ![RAG Page](https://via.placeholder.com/520x340.png?text=RAG+Query+Page) |
 
 ---
 
