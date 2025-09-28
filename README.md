@@ -52,7 +52,7 @@ A small full-stack app that **scrapes TikTok comments** and turns them into **ac
 
 All step-by-step usage and workflow documentation is maintained in a living Canva guide:
 
-➡️ **Open the workflow documentation:** https://www.canva.com/design/DAG0OuHTXqU/EWu5_bEazOY4LEVMfejQnw/edit?utm_content=DAG0OuHTXqU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+➡️ **Open the workflow documentation:** [https://www.canva.com/design/DAG0OuHTXqU/EWu5_bEazOY4LEVMfejQnw/edit?utm_content=DAG0OuHTXqU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton](https://www.canva.com/design/DAG0OuHTXqU/qtNWMKDiSiNRc2qh21rgnw/view?utm_content=DAG0OuHTXqU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h7390eb4606)
 
 **Inside the guide**
 - **Program flow simulations**
